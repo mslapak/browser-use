@@ -210,4 +210,10 @@ EXPOSE 9222
 # HEALTHCHECK --interval=30s --timeout=20s --retries=15 \
 #     CMD curl --silent 'http://localhost:8000/health/' | grep -q 'OK'
 
-ENTRYPOINT ["browser-use"]
+USER "$BROWSERUSE_USER"
+VOLUME "$DATA_DIR"
+
+# Render typicky nastaví PORT jako env proměnnou, EXPOSE je jen info
+EXPOSE 7860
+
+ENTRYPOINT ["python", "examples/ui/gradio_demo.py"]
